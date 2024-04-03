@@ -4,10 +4,14 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  // resolve: {
-  //   alias: {
-  //     "@": path.resolve(__dirname, "./src"),
-  //     "@img": path.resolve(__dirname, "./src/img"),
-  //   },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData:
+            '@import "src/styles/functions.scss"; ' +
+            '@import "src/styles/functions.scss";' +
+            '@import "src/styles/consts.scss";',
+      },
+    },
+  },
 })

@@ -5,10 +5,19 @@ import { GiantLink, MainTitle } from "../components/shared";
 <template>
   <section class="home">
     <main-title tag="h1">
-      Главная
-    </main-title>
-    <giant-link :to="{ name: 'store_system' }">
       Системы хранения
+    </main-title>
+    <giant-link
+      :to="
+        {
+          name: 'catalog',
+          params: {
+            catalog: 'items'
+          }
+        }
+      "
+    >
+      Комплекты стеллажных систем
     </giant-link>
   </section>
 </template>

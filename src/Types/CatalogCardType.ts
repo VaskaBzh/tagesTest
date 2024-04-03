@@ -1,4 +1,4 @@
-export readonly type CatalogCardType = {
+export type CatalogCardType = {
     id: number | string,
     material: number,
     name: string,

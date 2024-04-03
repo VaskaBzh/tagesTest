@@ -8,7 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import { CatalogCardType } from "../Types/CatalogCardType.ts";
+import { defineProps } from 'vue';
+import { CatalogCardType } from "../Types/CatalogCardType";
 
 interface IProps {
 	card: CatalogCardType,

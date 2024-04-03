@@ -1,0 +1,1 @@
+export type QueryParamType = string | number | undefined
