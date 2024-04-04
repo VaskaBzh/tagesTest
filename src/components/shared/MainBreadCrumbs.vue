@@ -42,7 +42,7 @@ const currentRouteName: ComputedRef<string> = computed(() =>
     font-weight: 400;
     line-height: 16px;
     text-decoration: none;
-    color: var(--gray, #4F4F4F);
+    color: var(--gray-breadcrumbs, #828282);
     transition: all 0.2s ease 0s;
     &-disabled {
       color: var(--black, #000000);
@@ -50,6 +50,7 @@ const currentRouteName: ComputedRef<string> = computed(() =>
     &:not(:first-child) {
       &:before {
         content: " / ";
+        color: var(--gray-devider, #727783);
       }
     }
   }

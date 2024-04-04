@@ -16,8 +16,8 @@ export class ItemData {
         this.material = itemRecord.material;
         this.name = itemRecord.name;
         this.price = {
-            old_price: itemRecord.price.old_price,
-            current_price: itemRecord.price.current_price,
+            old_price: Math.floor(itemRecord.price.old_price),
+            current_price: Math.floor(itemRecord.price.current_price),
         };
         this.image = {
             url: itemRecord.image.url
