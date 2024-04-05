@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import { MainTitle } from "../components/shared";
+import { MainTitle, MainSelect } from "../components/shared";
 import { PagesNameConfig } from "../configs/PagesNameConfig";
 import { RouteLocationNormalized, useRoute } from "vue-router";
 import { onMounted } from "vue";
-import { CatalogService } from "../services/CatalogService.ts";
 import CatalogCard from "../components/CatalogCard.vue";
+import { CatalogService } from "../services/CatalogService";
+import { CatalogClients } from "@/api";
+import { CatalogFacade } from "@/facade/CatalogFacade";
+import { MaterialsService } from "@/services/MaterialsService.ts";
 
 const route: RouteLocationNormalized = useRoute()
 const currentRouteCatalogParam: string = String(route.params.catalog);
 
-const catalogService: CatalogService = new CatalogService();
+function createCatalogFacade() {
+	return new CatalogFacade(CatalogClients, CatalogService, MaterialsService, currentRouteCatalogParam);
+}
+
+const catalogFacade = createCatalogFacade();
+
 
 onMounted(async () => {
-  await catalogService.getItems(currentRouteCatalogParam);
+  await catalogFacade.initCatalog();
 })
 </script>
 
@@ -22,7 +30,8 @@ onMounted(async () => {
       {{ PagesNameConfig[currentRouteCatalogParam] }}
     </main-title>
     <div class="catalog__filter">
-
+			<main-select :select-options="" />
+			<main-select :select-options="" />
     </div>
     <div class="catalog__list">
       <catalog-card

@@ -1,7 +1,7 @@
-import { BaseClient } from "./BaseClient.ts";
+import { BaseClient } from "./BaseClient";
 import {AxiosResponse} from "axios";
-import {SecurityService} from "../Security/SecurityService.ts";
-import { NullableResponseType } from "../types/ResponseType.ts";
+import {SecurityService} from "../Security/SecurityService";
+import { NullableResponseType } from "../types/ResponseType";
 
 export class CatalogClients extends BaseClient {
     public async materials(): Promise<AxiosResponse<any, any>> {

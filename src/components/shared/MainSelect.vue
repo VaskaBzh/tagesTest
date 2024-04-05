@@ -2,24 +2,27 @@
   <div class="select">
     <div class="select_head">{{ ownSelectedItem }}</div>
     <div class="select__options">
-      <div class="select_option"></div>
+      <div
+	      class="select_option"
+	      v-for="(option) in selectOptions"
+	      :key="option.value"
+      >
+	      {{ option.name }}
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import { onMounted, Ref, ref } from "vue";
+import { SelectOptionType } from "@/Types/SelectOptionType";
 
-const props = defineProps({
-  options: {
-    type: {},
-  },
-  selectedItem: {
-    type: String,
-  }
-})
+const props = defineProps<{
+	selectOptions: SelectOptionType[],
+	selectedItem: string,
+}>()
 
-const ownSelectedItem = ref(null)
+const ownSelectedItem: Ref<string> = ref("")
 
 onMounted(() => {
   ownSelectedItem.value = props.selectedItem

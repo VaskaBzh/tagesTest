@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, defineProps, onMounted, ref } from 'vue';
+import { defineProps } from 'vue';
 import { CatalogCardType } from "../Types/CatalogCardType";
 import CartIcon from "@icons/CartIcon.vue";
 import HeartIcon from "@icons/HeartIcon.vue";
