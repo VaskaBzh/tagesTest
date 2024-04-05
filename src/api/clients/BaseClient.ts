@@ -25,19 +25,16 @@ export class BaseClient implements BaseClientContract {
         const ENTRIES_KEY_INDEX = 0;
         const ENTRIES_VALUE_INDEX = 1;
 
-        if (
-            queryEntries.length <= 0 ||
-            queryEntries.filter(
-                (queryElement: [string, QueryParamType]): boolean => queryElement[ENTRIES_VALUE_INDEX] !== undefined
-            )
-            .length <= 0
-        ) {
+        const filteredQueries = queryEntries.filter(
+            (queryElement: [string, QueryParamType]): boolean => Boolean(queryElement[ENTRIES_VALUE_INDEX])
+        )
+        if (filteredQueries.length <= 0) {
             return false;
         }
 
         this.uri += "?";
 
-        this.uri += queryEntries
+        this.uri += filteredQueries
             .map((queryElement: [string, QueryParamType]): string => `${queryElement[ENTRIES_KEY_INDEX]}=${queryElement[ENTRIES_VALUE_INDEX]}`)
             .join("&");
 
@@ -45,7 +42,7 @@ export class BaseClient implements BaseClientContract {
     }
 
     async send(): Promise<ResponseType> {
-        // @ts-ignore
+        // @ts-expect-error
         return await api[this.method](this.uri);
     }
 }

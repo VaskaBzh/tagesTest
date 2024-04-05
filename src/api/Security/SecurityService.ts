@@ -1,5 +1,5 @@
 import { ResponseTrait } from "../../traits/ResponseTrait";
-import { NullableResponseType, ResponseType } from "../types/ResponseType.ts";
+import { NullableResponseType, ResponseType } from "../types/ResponseType";
 import { AxiosResponse } from "axios";
 
 export class SecurityService {

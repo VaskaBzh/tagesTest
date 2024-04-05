@@ -1,5 +1,5 @@
 import { router } from "../router"
-import { RouteLocationNormalizedLoaded } from "vue-router";
+import {RouteLocationNormalizedLoaded, RouteRecordName} from "vue-router";
 
 export class RouterTrait {
     public static getPrevRouteChain(): string[]  {
@@ -9,7 +9,7 @@ export class RouterTrait {
         while (currentRoute?.meta?.prevPageName) {
             currentRoute = router.resolve(
                 {
-                    name: currentRoute.meta.prevPageName
+                    name: currentRoute.meta.prevPageName as RouteRecordName
                 }
             ).matched[0];
 

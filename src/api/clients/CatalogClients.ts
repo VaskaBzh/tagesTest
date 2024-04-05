@@ -15,7 +15,7 @@ export class CatalogClients extends BaseClient {
             .setMethod("get")
 
         this.pushQuery({
-            materials: materialsId,
+            material: materialsId,
             _sort: orderByPrice,
         })
 

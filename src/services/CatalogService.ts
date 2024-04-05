@@ -4,18 +4,19 @@ import { ResponseTrait } from "../traits/ResponseTrait";
 import { ItemData } from "../DTO/ItemData";
 import { Ref, ref } from "vue";
 import { NullableResponseType } from "../api/types/ResponseType.ts";
+import { ICatalogService } from "../interfaces/ICatalogService.ts";
 
-export class CatalogService {
+export class CatalogService implements ICatalogService {
     itemList: Ref<CatalogCardType[]> = ref([]);
     client: Function;
     filterList: string[] = [];
 
-    public constructor(client: CatalogClients = CatalogClients, currentRouteCatalogParam: string = "items") {
-        this.client = (new client())[currentRouteCatalogParam];
-    };
+    public constructor(client: CatalogClients = CatalogClients) {
+        this.client = new client();
+    }
 
-    public async getItems(): Promise<CatalogService> {
-        const response: NullableResponseType = await this.client(...this.filterList);
+    public async getItems(currentRouteCatalogParam: string = "items"): Promise<this> {
+        const response: NullableResponseType = await this.client[currentRouteCatalogParam](...this.filterList);
 
         if (!response) {
             return this;
@@ -26,7 +27,7 @@ export class CatalogService {
         return this;
     }
 
-    public updateFilter(newFilterValue: string, valueIndex: number): CatalogService {
+    public updateFilter(newFilterValue: string, valueIndex: number): this {
         this.filterList.splice(valueIndex, 1, newFilterValue)
 
         return this;

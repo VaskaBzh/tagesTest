@@ -1,5 +1,5 @@
 export class ResponseTrait {
-    static getResponseData(response): {[key: string]: any} | any[] {
+    static getResponseData(response: any): {[key: string]: any} | any[] | void  {
         if (!response?.data) {
             return response;
         }

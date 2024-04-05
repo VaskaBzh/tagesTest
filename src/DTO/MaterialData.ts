@@ -3,7 +3,7 @@ export class MaterialData {
     name: string;
 
     constructor(materialRecord) {
-        this.value = materialRecord.value;
+        this.value = materialRecord.id;
         this.name = materialRecord.name;
     }
 }

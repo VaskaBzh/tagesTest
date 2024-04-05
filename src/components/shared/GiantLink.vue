@@ -1,8 +1,14 @@
 <script setup lang="ts">
+import { defineProps } from "vue";
+import { RouteLocationRaw } from "vue-router";
+
+defineProps<{
+  to: RouteLocationRaw;
+}>()
 </script>
 
 <template>
-  <router-link class="link-giant">
+  <router-link :to="defineProps" class="link-giant">
     <slot />
   </router-link>
 </template>

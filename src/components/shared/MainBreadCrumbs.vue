@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 import { computed, ComputedRef } from "vue";
-import { PagesNameConfig } from "../../configs/PagesNameConfig";
-import { RouterTrait } from "../../traits/RouterTrait";
+import { PagesNameConfig } from "@/configs/PagesNameConfig";
+import { RouterTrait } from "@/traits/RouterTrait";
 
 const route: RouteLocationNormalizedLoaded = useRoute();
 
