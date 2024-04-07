@@ -1,40 +1,38 @@
 import { QueryParamType } from "../types/QueryParamType";
 
-const ENTRIES_KEY_INDEX: 0 = 0;
-const ENTRIES_VALUE_INDEX: 1 = 1;
-
 export class Request {
-    private uri: string = ""
-    private method: string = ""
+    public uri: string
+    public method: string
+    public query: string = ""
 
-    protected setMethod(newMethodValue: string = "get"): this {
-        this.method = newMethodValue;
-
-        return this;
+    protected constructor(newMethod: string, newUri: string) {
+        this.method = newMethod;
+        this.uri = newUri;
     }
 
-    protected setUri(newUriValue: string): this {
-        this.uri = newUriValue;
-
-        return this;
-    }
-
-    protected pushQuery(query: { [key: string] : QueryParamType }): boolean {
-        const queryEntries: [string, QueryParamType][] = Object.entries(query);
-
-        const filteredQueries: [string, QueryParamType][] = queryEntries.filter(
-            (queryElement: [string, QueryParamType]): boolean => Boolean(queryElement[ENTRIES_VALUE_INDEX])
-        )
-        if (filteredQueries.length <= 0) {
-            return false;
+    public pushQuery(key: string, value: QueryParamType): this {
+        if (!value) {
+            return this;
         }
 
-        this.uri += "?";
+        if (this.query.length <= 0) {
+            this.query += "?"
+        } else {
+            this.query += "&"
+        }
 
-        this.uri += filteredQueries
-            .map((queryElement: [string, QueryParamType]): string => `${queryElement[ENTRIES_KEY_INDEX]}=${queryElement[ENTRIES_VALUE_INDEX]}`)
-            .join("&");
+        this.query += `${key}=${value}`
 
-        return true;
+        return this;
+    }
+
+    public clearQuery(): this {
+        this.query = ""
+
+        return this;
+    }
+
+    public static get(uri: string): Request {
+        return new Request("get", uri)
     }
 }

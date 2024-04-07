@@ -12,8 +12,12 @@ export abstract class BaseClient {
         })
     }
 
-    protected async send(Request: typeof Request): Promise<ResponseType> {
+    protected async send(request: typeof Request): Promise<ResponseType> {
         // @ts-expect-error
-        return this.baseRequest[Request.method](Request.uri);
+        return this.baseRequest[request.method](
+            request.method === "get" ?
+                request.uri + request.query :
+                request.uri
+        );
     }
 }
