@@ -1,4 +1,4 @@
-import { CatalogClients } from "../api";
+import { CatalogClient } from "../api";
 import { MaterialType } from "../Types/MaterialType";
 import { ResponseTrait } from "../traits/ResponseTrait";
 import { ref, Ref } from "vue";
@@ -7,9 +7,9 @@ import { IMaterialsService } from "../interfaces/IMaterialsService";
 
 export class MaterialsService implements IMaterialsService {
     materialList: Ref<MaterialType[]> = ref([]);
-    client: typeof CatalogClients;
+    client: typeof CatalogClient;
 
-    public constructor(materialsClient: typeof CatalogClients) {
+    public constructor(materialsClient: typeof CatalogClient) {
         this.client = new materialsClient();
     }
 

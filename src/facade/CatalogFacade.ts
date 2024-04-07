@@ -1,5 +1,5 @@
 import { CatalogService } from "@/services/CatalogService";
-import { CatalogClients } from "../api";
+import { CatalogClient } from "../api";
 import { CatalogCardType } from "../Types/CatalogCardType";
 import { MaterialsService } from "@/services/MaterialsService";
 import { MaterialType } from "../Types/MaterialType";
@@ -21,7 +21,7 @@ export class CatalogFacade {
     // methods
 
     public async initCatalog(
-        client: CatalogClients = CatalogClients,
+        client: CatalogClient = CatalogClient,
         catalogService: CatalogService = CatalogService,
         materialsService: MaterialsService = MaterialsService,
         currentRouteCatalogParam: string = "items"

@@ -1,4 +1,4 @@
-import { CatalogClients } from "../api";
+import { CatalogClient } from "../api";
 import { CatalogCardType } from "../Types/CatalogCardType";
 import { ResponseTrait } from "../traits/ResponseTrait";
 import { ItemData } from "../DTO/ItemData";
@@ -8,10 +8,10 @@ import { ICatalogService } from "../interfaces/ICatalogService.ts";
 
 export class CatalogService implements ICatalogService {
     itemList: Ref<CatalogCardType[]> = ref([]);
-    client: Function;
+    client: typeof CatalogClient;
     filterList: string[] = [];
 
-    public constructor(client: CatalogClients = CatalogClients) {
+    public constructor(client: CatalogClient = CatalogClient) {
         this.client = new client();
     }
 

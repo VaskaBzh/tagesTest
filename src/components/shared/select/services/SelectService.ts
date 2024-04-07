@@ -11,8 +11,8 @@ export class SelectService implements ISelectService {
         },
     ]);
 
-    protected constructor(newSelectedValue: string, newSelectOptions: SelectOptionType[]) {
-        let selectedValue: string = newSelectedValue;
+    protected constructor(newSelectOptions: SelectOptionType[], newSelectedValue?: string) {
+        let selectedValue: string = newSelectedValue as string;
 
         this.selectOptions.value = [
             ...this.selectOptions.value,
@@ -30,17 +30,13 @@ export class SelectService implements ISelectService {
         return this;
     }
 
-    public static initSelect(ownSelectedValue: string | null, selectOptions: SelectOptionType[]): SelectService {
+    public static initSelect(selectOptions: SelectOptionType[], ownSelectedValue?: string): SelectService {
         let selectedValue: string = ""
 
         if (ownSelectedValue) {
             selectedValue = ownSelectedValue
         }
 
-        return new SelectService(selectedValue, selectOptions);
-    }
-
-    initSelect(ownSelectedValue: string | null, selectOptions: []): ISelectService {
-        return undefined;
+        return new SelectService(selectOptions, selectedValue);
     }
 }

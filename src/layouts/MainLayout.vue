@@ -16,6 +16,7 @@ import MainBreadCrumbs from "../components/shared/MainBreadCrumbs.vue";
 <style scoped lang="scss">
 .layout {
   background: var(--white, #ffffff);
+  padding: adaptive-value(16px, 32px) 0;
   &__container {
     max-width: calc(1488px + (adaptive-value(16px, 20px) * 2));
     margin: 0 auto;

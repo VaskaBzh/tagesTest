@@ -1,10 +1,10 @@
 import {CatalogCardType} from "../Types/CatalogCardType";
 import {MaterialType} from "../Types/MaterialType";
-import {CatalogClients} from "../api";
+import {CatalogClient} from "../api";
 import {MaterialsService} from "../services/MaterialsService";
 import {CatalogService} from "../services/CatalogService";
 
-export interface CatalogFacade {
+export interface ICatalogFacade {
     catalogService: CatalogService
     materialsService: MaterialsService
     currentRouteCatalogParam: string
@@ -13,8 +13,8 @@ export interface CatalogFacade {
     get materials(): MaterialType[]
 
     initCatalog(
-        client: CatalogClients,
-        catalogService: CatalogService ,
+        client: CatalogClient,
+        catalogService: CatalogService,
         materialsService: MaterialsService,
         currentRouteCatalogParam: string
     ): Promise<this>

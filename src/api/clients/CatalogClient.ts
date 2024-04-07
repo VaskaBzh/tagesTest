@@ -1,10 +1,10 @@
 import { BaseClient } from "./BaseClient";
-import {AxiosResponse} from "axios";
-import {SecurityService} from "../Security/SecurityService";
-import { NullableResponseType } from "../types/ResponseType";
+import { SecurityService } from "../Security/SecurityService";
+import { NullableResponseType, ResponseType } from "../types/ResponseType";
+import { CatalogClientContract } from "./contracts/CatalogClientContract";
 
-export class CatalogClients extends BaseClient {
-    public async materials(): Promise<AxiosResponse<any, any>> {
+export class CatalogClient extends BaseClient implements CatalogClientContract {
+    public async materials(): ResponseType {
         return await this.setUri("/materials")
             .setMethod("get")
             .send()
@@ -18,7 +18,6 @@ export class CatalogClients extends BaseClient {
             material: materialsId,
             _sort: orderByPrice,
         })
-
 
         return SecurityService.securitySend(this.send.bind(this));
     }

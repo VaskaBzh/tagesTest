@@ -1,1 +1,1 @@
-export { CatalogClients } from "./CatalogClients.ts"
+export { CatalogClient } from "./CatalogClient.ts"

@@ -6,7 +6,7 @@ import { PagesNameConfig } from "../configs/PagesNameConfig";
 import { RouteLocationNormalized, useRoute } from "vue-router";
 import { onMounted, ref } from "vue";
 import { CatalogService } from "../services/CatalogService";
-import { CatalogClients } from "@/api";
+import { CatalogClient } from "@/api";
 import { CatalogFacade } from "@/facade/CatalogFacade";
 import { MaterialsService } from "@/services/MaterialsService";
 import { MaterialType } from "@/Types/MaterialType";
@@ -15,7 +15,7 @@ const route: RouteLocationNormalized = useRoute()
 const currentRouteCatalogParam: string = String(route.params.catalog);
 
 function createCatalogFacade() {
-	return ref(new CatalogFacade(CatalogClients, CatalogService, MaterialsService, currentRouteCatalogParam));
+	return ref(new CatalogFacade(CatalogClient, CatalogService, MaterialsService, currentRouteCatalogParam));
 }
 
 const catalogFacade = createCatalogFacade();

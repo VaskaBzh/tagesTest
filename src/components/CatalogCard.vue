@@ -58,6 +58,7 @@ const props = defineProps<{
     max-width: 238px;
     width: 100%;
     max-height: 237px;
+    margin-bottom: adaptive-value(16px, 24px);
   }
   &_badge {
     min-width: 81px;

@@ -27,8 +27,9 @@ import ArrowIcon from "@icons/ArrowIcon.vue";
 import MainLabel from "../MainLabel.vue";
 
 import { onMounted, Ref, ref } from "vue";
-import { SelectOptionType } from "@/components/shared/select/types/SelectOptionType";
-import { SelectService } from "@/components/shared/select/services/SelectService";
+import { SelectOptionType } from "./types/SelectOptionType";
+import { SelectService } from "./services/SelectService";
+import { ISelectService } from "./interfaces/ISelectService";
 
 const props = withDefaults(defineProps<{
   selectOptions: SelectOptionType[],
@@ -38,10 +39,10 @@ const props = withDefaults(defineProps<{
   selectOptions: [] as SelectOptionType[],
 })
 
-const selectService: Ref<SelectService> = ref({})
+const selectService: Ref<ISelectService> = ref({}) as Ref<ISelectService>
 
 onMounted(() => {
-  selectService.value = SelectService.initSelect(props.selectedItem, props.selectOptions)
+  selectService.value = SelectService.initSelect(props.selectOptions, props.selectedItem)
 })
 </script>
 

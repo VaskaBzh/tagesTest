@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <router-link :to="defineProps" class="link-giant">
+  <router-link :to="to" class="link-giant">
     <slot />
   </router-link>
 </template>
