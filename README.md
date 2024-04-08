@@ -1,9 +1,44 @@
-# Vue 3 + TypeScript + Vite
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+# Проект "TagesTest"
 
-## Recommended Setup
+Проект использует Node.js версии v21.7.1.
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## Установка
 
-- Use [vue-tsc](https://github.com/vuejs/language-tools/tree/master/packages/tsc) for performing the same type checking from the command line, or for generating d.ts files for SFCs.
+1. Убедитесь, что у вас установлен Node.js версии v21.7.1.
+2. Клонируйте репозиторий на ваш компьютер.
+3. Установите зависимости, запустив команду:
+
+```bash
+npm install
+```
+
+## Запуск
+
+### Запуск сервера разработки
+
+Для запуска сервера разработки выполните команду:
+
+```bash
+npm run dev
+```
+
+Сервер разработки будет доступен по адресу [http://localhost:5173/](http://localhost:5173/).
+
+### Запуск сервера базы данных
+
+Для запуска сервера базы данных выполните команду:
+
+```bash
+npm run db
+```
+
+Сервер базы данных будет доступен по адресу [http://localhost:4001/](http://localhost:4001/).
+
+## Компиляция
+
+При компиляции проекта две JSON базы данных собираются в папке `/db/db.json`.
+
+## База данных
+
+В качестве базы данных используется JSON-SERVER.
