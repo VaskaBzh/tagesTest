@@ -1,14 +1,13 @@
-import { ResponseType } from "@/Types/ResponseType.ts";
-import { AxiosResponse } from "axios";
+import { ResponseType } from "@/Types/ResponseType";
 
 export class ResponseTrait {
-    static getResponseData(response: AxiosResponse<string, unknown>): ResponseType  {
+    static getResponseData(response: ResponseType): ResponseType  {
         if (!response?.data) {
             return response as ResponseType;
         }
 
         if (response?.data) {
-            return this.getResponseData(response.data as AxiosResponse<string, unknown>);
+            return this.getResponseData(response.data as ResponseType);
         }
 
         return response;

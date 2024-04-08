@@ -1,17 +1,18 @@
-import { CatalogClient } from "../api";
+import { CatalogClient } from "@/api";
 import { CatalogCardType } from "../Types/CatalogCardType";
 import { ResponseTrait } from "../traits/ResponseTrait";
 import { ItemData } from "../DTO/ItemData";
 import { Ref, ref } from "vue";
 import { NullableResponseType } from "../api/types/ResponseType.ts";
-import { ICatalogService } from "../interfaces/ICatalogService.ts";
+import { CatalogServiceContract } from "@/contracts/CatalogServiceContract";
+import { CatalogClientContract } from "@/api/clients/contracts/CatalogClientContract";
 
-export class CatalogService implements ICatalogService {
-    itemList: Ref<CatalogCardType[]> = ref([]);
-    client: typeof CatalogClient;
-    filterList: string[] = [];
+export class CatalogService implements CatalogServiceContract {
+    protected itemList: Ref<CatalogCardType[]> = ref([]);
+    private client: CatalogClientContract;
+    protected filterList: string[] = [];
 
-    public constructor(client: CatalogClient = CatalogClient) {
+    public constructor(client: CatalogClientContract = CatalogClient) {
         this.client = new client();
     }
 

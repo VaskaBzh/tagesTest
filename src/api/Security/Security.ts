@@ -1,10 +1,9 @@
-import { ResponseTrait } from "@/traits/ResponseTrait.ts";
+import { ResponseTrait } from "@/traits/ResponseTrait";
 import { NullableResponseType, ResponseType } from "../types/ResponseType";
-import { AxiosResponse } from "axios";
 
 export async function securitySend(request: () => Promise<ResponseType>): Promise<NullableResponseType> {
     try {
-        const response: AxiosResponse<string, unknown> = await request();
+        const response: ResponseType = await request();
 
         if (ResponseTrait.isEmptyResponse(ResponseTrait.getResponseData(response))) {
             throw new Error(`Empty response`)

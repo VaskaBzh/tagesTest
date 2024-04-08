@@ -1,6 +1,7 @@
 import { QueryParamType } from "../types/QueryParamType";
+import { RequestContract } from "./RequestContract";
 
-export class Request {
+export class Request implements RequestContract {
     public uri: string
     public method: string
     public query: string = ""
@@ -32,7 +33,7 @@ export class Request {
         return this;
     }
 
-    public static get(uri: string): Request {
+    public static get(uri: string): RequestContract {
         return new Request("get", uri)
     }
 }

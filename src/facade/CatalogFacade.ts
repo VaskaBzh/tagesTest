@@ -1,13 +1,15 @@
 import { CatalogService } from "@/services/CatalogService";
-import { CatalogClient } from "../api";
+import { CatalogClient } from "@/api";
 import { CatalogCardType } from "../Types/CatalogCardType";
 import { MaterialsService } from "@/services/MaterialsService";
 import { MaterialType } from "../Types/MaterialType";
+import { CatalogFacadeContract } from "@/contracts/CatalogFacadeContract";
+import { CatalogClientContract } from "@/api";
 
-export class CatalogFacade {
-    catalogService: CatalogService
-    materialsService: MaterialsService
-    currentRouteCatalogParam: string
+export class CatalogFacade implements CatalogFacadeContract {
+    private catalogService: CatalogService
+    private materialsService: MaterialsService
+    private currentRouteCatalogParam: string = ""
 
     // getters
     public get itemList(): CatalogCardType[] {
@@ -21,7 +23,7 @@ export class CatalogFacade {
     // methods
 
     public async initCatalog(
-        client: CatalogClient = CatalogClient,
+        client: CatalogClientContract = CatalogClient,
         catalogService: CatalogService = CatalogService,
         materialsService: MaterialsService = MaterialsService,
         currentRouteCatalogParam: string = "items"

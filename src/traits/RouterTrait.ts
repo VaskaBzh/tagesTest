@@ -1,10 +1,10 @@
-import { router } from "../router"
-import {RouteLocationNormalizedLoaded, RouteRecord, RouteRecordName} from "vue-router";
+import { router } from "@/router"
+import { RouteRecordName, RouteRecord } from "vue-router";
 
 export class RouterTrait {
-    public static getPrevRouteChain(): string[]  {
-        const routeChain: string[] = [];
-        let currentRoute: RouteLocationNormalizedLoaded = router.currentRoute.value;
+    public static getPrevRouteChain(): RouteRecordName[]  {
+        const routeChain: RouteRecordName[] = [];
+        let currentRoute: RouteRecord = router.currentRoute.value;
 
         while (currentRoute?.meta?.prevPageName) {
             currentRoute = router.resolve(
@@ -13,7 +13,7 @@ export class RouterTrait {
                 }
             ).matched[0];
 
-            routeChain.unshift(currentRoute.name as string);
+            routeChain.unshift(currentRoute.name as RouteRecordName);
         }
 
         return routeChain;

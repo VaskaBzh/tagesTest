@@ -1,20 +1,21 @@
-import { CatalogClient } from "../api";
 import { MaterialType } from "../Types/MaterialType";
 import { ResponseTrait } from "../traits/ResponseTrait";
 import { ref, Ref } from "vue";
 import { MaterialData } from "../DTO/MaterialData";
-import { IMaterialsService } from "../interfaces/IMaterialsService";
+import { MaterialsServiceContract } from "@/contracts/MaterialsServiceContract";
+import { CatalogClientContract } from "@/api/clients/contracts/CatalogClientContract";
+import { ResponseType } from "@/Types/ResponseType";
 
-export class MaterialsService implements IMaterialsService {
-    materialList: Ref<MaterialType[]> = ref([]);
-    client: typeof CatalogClient;
+export class MaterialsService implements MaterialsServiceContract {
+    protected materialList: Ref<MaterialType[]> = ref([]);
+    private client: CatalogClientContract;
 
-    public constructor(materialsClient: typeof CatalogClient) {
+    public constructor(materialsClient: CatalogClientContract) {
         this.client = new materialsClient();
     }
 
     public async getMaterials(): Promise<this> {
-        const response = await this.client.materials();
+        const response: ResponseType = await this.client.materials();
 
         if (!response) {
             return this;

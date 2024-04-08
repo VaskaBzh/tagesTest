@@ -11,7 +11,7 @@ export class ItemData {
     };
     code?: string;
 
-    constructor(itemRecord) {
+    constructor(itemRecord: { [key: string]: any }) {
         this.id = itemRecord.id;
         this.material = itemRecord.material;
         this.name = itemRecord.name;
