@@ -57,6 +57,7 @@ const orderFilter: MaterialType[] = [
         v-for="(card) in catalogFacade.itemList"
         :key="card.id"
         :card="card"
+        class="catalog_card"
       />
     </div>
   </section>
@@ -65,10 +66,18 @@ const orderFilter: MaterialType[] = [
 <style scoped lang="scss">
 .catalog {
   &__list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: adaptive-value(16px, 48px) adaptive-value(12px, 40px);
-    justify-content: flex-start;
+    @media (max-width: $pc) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: $tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: $mobile) {
+      grid-template-columns: 1fr;
+    }
   }
   &__filter {
     display: flex;
@@ -77,8 +86,14 @@ const orderFilter: MaterialType[] = [
     flex-wrap: wrap;
     margin-bottom: adaptive-value(16px, 40px);
   }
+  &_card {
+    max-width: 100%;
+  }
   &_select {
     max-width: 288px;
+    @media (max-width: $mobile) {
+      max-width: 100%;
+    }
   }
 }
 </style>

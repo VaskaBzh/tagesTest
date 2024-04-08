@@ -2,6 +2,7 @@ import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from "path";
 import fs from 'fs/promises';
+import autoprefixer from 'autoprefixer';
 
 
 // https://vitejs.dev/config/
@@ -31,7 +32,9 @@ export default defineConfig(async () => {
     await combineJsonFiles();
 
     return {
-        plugins: [vue()],
+        plugins: [
+            vue()
+        ],
         esbuild: {
             target: 'esnext',
         },
@@ -43,6 +46,11 @@ export default defineConfig(async () => {
             },
         },
         css: {
+            postcss: {
+                plugins: [
+                    autoprefixer()
+                ]
+            },
             preprocessorOptions: {
                 scss: {
                     additionalData:

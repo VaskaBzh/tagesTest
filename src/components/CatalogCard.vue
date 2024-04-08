@@ -91,6 +91,7 @@ const props = defineProps<{
     justify-content: space-between;
     gap: 6px;
     align-items: center;
+    margin-top: auto;
   }
   &__actions {
     display: flex;
