@@ -29,17 +29,15 @@ import MainLabel from "../MainLabel.vue";
 import { onMounted, Ref, ref } from "vue";
 import { SelectOptionType } from "./types/SelectOptionType";
 import { SelectService } from "./services/SelectService";
-import { ISelectService } from "./interfaces/ISelectService";
+import { SelectServiceContract } from "@/components/shared/select/contracts/SelectServiceContract.ts";
 
-const props = withDefaults(defineProps<{
-  selectOptions: SelectOptionType[],
+const props = defineProps<{
+  selectOptions?: SelectOptionType[],
   selectedItem?: string,
   label: string,
-}>(), {
-  selectOptions: [] as SelectOptionType[],
-})
+}>()
 
-const selectService: Ref<ISelectService> = ref({}) as Ref<ISelectService>
+const selectService: Ref<SelectServiceContract> = ref({}) as Ref<SelectServiceContract>
 
 onMounted(() => {
   selectService.value = SelectService.initSelect(props.selectOptions, props.selectedItem)

@@ -1,8 +1,7 @@
 import { SelectOptionType } from "../types/SelectOptionType";
-import { Ref } from "vue";
 
-export interface ISelectService {
+export interface SelectServiceContract {
     selectedValue: string;
-    selectOptions: Ref<SelectOptionType[]>
+    selectOptions: SelectOptionType[]
     setSelectedValue(newSelectedValue: string): this;
 }

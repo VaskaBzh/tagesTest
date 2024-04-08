@@ -1,25 +1,25 @@
 import { SelectOptionType } from "../types/SelectOptionType";
-import { ISelectService } from "../interfaces/ISelectService";
-import { ref, Ref } from "vue";
+import { SelectServiceContract } from "../contracts/SelectServiceContract";
+import { reactive } from "vue";
 
-export class SelectService implements ISelectService {
+export class SelectService implements SelectServiceContract {
     public selectedValue: string
-    public selectOptions: Ref<SelectOptionType[]> = ref([
+    public selectOptions: SelectOptionType[] = reactive([
         {
             value: "",
             name: "Выберите фильтр",
         },
     ]);
 
-    protected constructor(newSelectOptions: SelectOptionType[], newSelectedValue?: string) {
+    private constructor(newSelectOptions: SelectOptionType[], newSelectedValue?: string) {
         let selectedValue: string = newSelectedValue as string;
 
-        this.selectOptions.value = [
-            ...this.selectOptions.value,
+        this.selectOptions = [
+            ...this.selectOptions,
             ...newSelectOptions
         ]
         if (newSelectOptions?.length > 0) {
-            selectedValue = this.selectOptions.value[0]?.name
+            selectedValue = this.selectOptions[0]?.name
         }
         this.selectedValue = selectedValue;
     }
@@ -30,7 +30,7 @@ export class SelectService implements ISelectService {
         return this;
     }
 
-    public static initSelect(selectOptions: SelectOptionType[], ownSelectedValue?: string): SelectService {
+    public static initSelect(selectOptions: SelectOptionType[] = [], ownSelectedValue?: string): SelectService {
         let selectedValue: string = ""
 
         if (ownSelectedValue) {

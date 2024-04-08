@@ -1,27 +1,28 @@
-import { MaterialType } from "../Types/MaterialType";
-import { ResponseTrait } from "../traits/ResponseTrait";
-import { ref, Ref } from "vue";
-import { MaterialData } from "../DTO/MaterialData";
+import { MaterialType } from "@/Types/MaterialType";
+import { ResponseTrait } from "@/traits/ResponseTrait";
+import { reactive } from "vue";
+import { MaterialData } from "@/DTO/MaterialData";
 import { MaterialsServiceContract } from "@/contracts/MaterialsServiceContract";
 import { CatalogClientContract } from "@/api/clients/contracts/CatalogClientContract";
 import { ResponseType } from "@/Types/ResponseType";
+import { CatalogClient } from "@/api";
 
 export class MaterialsService implements MaterialsServiceContract {
-    protected materialList: Ref<MaterialType[]> = ref([]);
+    public materialList: MaterialType[] = reactive([]);
     private client: CatalogClientContract;
 
-    public constructor(materialsClient: CatalogClientContract) {
+    public constructor(materialsClient: typeof CatalogClient) {
         this.client = new materialsClient();
     }
 
     public async getMaterials(): Promise<this> {
-        const response: ResponseType = await this.client.materials();
+        const response: ResponseType | null = await this.client.materials();
 
         if (!response) {
             return this;
         }
 
-        this.materialList.value = ResponseTrait
+        this.materialList = ResponseTrait
             .getResponseData(response)
             .map(
                 (materialRecord: MaterialType) => new MaterialData(materialRecord)

@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { RouteLocationNormalizedLoaded, RouteRecordName, useRoute } from "vue-router";
+import { RouteLocationNormalizedLoaded, useRoute } from "vue-router";
 import { computed, ComputedRef } from "vue";
 import { PagesNameConfig } from "@/configs/PagesNameConfig";
 import { RouterTrait } from "@/traits/RouterTrait";
 
 const route: RouteLocationNormalizedLoaded = useRoute();
 
-const breadCrumbsList: ComputedRef<RouteRecordName[]> = computed(() => RouterTrait.getPrevRouteChain());
+const breadCrumbsList: ComputedRef<string[]> = computed(() => RouterTrait.getPrevRouteChain());
 
 const FIRST_PARAM_INDEX: number = 0;
 
+const configKeyByRoute: ComputedRef<string> = computed(() =>
+  Object.values(route.params)[FIRST_PARAM_INDEX] as string ??
+  route.name
+)
+
 const currentRouteName: ComputedRef<string> = computed(() =>
-  PagesNameConfig[
-    Object.values(route.params)[FIRST_PARAM_INDEX] ??
-    route.name
-  ]
+  PagesNameConfig[configKeyByRoute.value]
 )
 </script>
 

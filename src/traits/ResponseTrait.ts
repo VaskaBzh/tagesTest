@@ -1,7 +1,7 @@
 import { ResponseType } from "@/Types/ResponseType";
 
 export class ResponseTrait {
-    static getResponseData(response: ResponseType): ResponseType  {
+    static getResponseData(response: ResponseType): ResponseType {
         if (!response?.data) {
             return response as ResponseType;
         }

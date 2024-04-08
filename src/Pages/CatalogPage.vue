@@ -4,21 +4,25 @@ import CatalogCard from "../components/CatalogCard.vue";
 import { MainTitle, MainSelect } from "../components/shared";
 import { PagesNameConfig } from "../configs/PagesNameConfig";
 import { RouteLocationNormalized, useRoute } from "vue-router";
-import { onMounted, ref } from "vue";
+import { ref, Ref } from "vue";
 import { CatalogService } from "../services/CatalogService";
 import { CatalogClient } from "@/api";
 import { CatalogFacade } from "@/facade/CatalogFacade";
 import { MaterialsService } from "@/services/MaterialsService";
 import { MaterialType } from "@/Types/MaterialType";
+import { CatalogFacadeContract } from "@/contracts/CatalogFacadeContract";
 
 const route: RouteLocationNormalized = useRoute()
 const currentRouteCatalogParam: string = String(route.params.catalog);
 
-function createCatalogFacade() {
-	return ref(new CatalogFacade(CatalogClient, CatalogService, MaterialsService, currentRouteCatalogParam));
-}
-
-const catalogFacade = createCatalogFacade();
+const catalogFacade: Ref<CatalogFacadeContract> = ref(
+  new CatalogFacade(
+    CatalogClient,
+    CatalogService,
+    MaterialsService,
+    currentRouteCatalogParam
+  )
+);
 
 const orderFilter: MaterialType[] = [
   {
@@ -26,8 +30,6 @@ const orderFilter: MaterialType[] = [
     name: "По возрастанию цены",
   },
 ]
-
-catalogFacade.value.initCatalog();
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { RequestContract } from "../request/RequestContract";
-import { ResponseType } from "../types/ResponseType";
+import { ResponseType } from "@/Types/ResponseType";
 
 
 export abstract class BaseClient {
@@ -9,10 +9,11 @@ export abstract class BaseClient {
     protected get baseRequest(): AxiosInstance {
         return axios.create({
             baseURL: this.baseUrl()
-        })
+        });
     }
 
     protected async send(request: RequestContract): Promise<ResponseType> {
+        // @ts-expect-error
         return this.baseRequest[request.method](
             request.method === "get" ?
                 request.uri + request.query :

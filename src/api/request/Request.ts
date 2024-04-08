@@ -1,4 +1,3 @@
-import { QueryParamType } from "../types/QueryParamType";
 import { RequestContract } from "./RequestContract";
 
 export class Request implements RequestContract {
@@ -11,7 +10,7 @@ export class Request implements RequestContract {
         this.uri = newUri;
     }
 
-    public pushQuery(key: string, value: QueryParamType): this {
+    public pushQuery(key: string, value: unknown): this {
         if (!value) {
             return this;
         }

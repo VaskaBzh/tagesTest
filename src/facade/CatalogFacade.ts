@@ -1,43 +1,43 @@
 import { CatalogService } from "@/services/CatalogService";
-import { CatalogClient } from "@/api";
-import { CatalogCardType } from "../Types/CatalogCardType";
+import { CatalogCardType } from "@/Types/CatalogCardType";
 import { MaterialsService } from "@/services/MaterialsService";
-import { MaterialType } from "../Types/MaterialType";
+import { MaterialType } from "@/Types/MaterialType";
 import { CatalogFacadeContract } from "@/contracts/CatalogFacadeContract";
-import { CatalogClientContract } from "@/api";
+import { CatalogServiceContract } from "@/contracts/CatalogServiceContract.ts";
+import { MaterialsServiceContract } from "@/contracts/MaterialsServiceContract.ts";
+import { CatalogClient } from "@/api";
+import { reactive } from "vue";
 
 export class CatalogFacade implements CatalogFacadeContract {
-    private catalogService: CatalogService
-    private materialsService: MaterialsService
-    private currentRouteCatalogParam: string = ""
+    private catalogService: CatalogServiceContract
+    private materialsService: MaterialsServiceContract
+    private readonly currentRouteCatalogParam: string = ""
 
     // getters
     public get itemList(): CatalogCardType[] {
-        return this.catalogService?.itemList.value;
+        return this.catalogService.itemList;
     }
 
     public get materials(): MaterialType[] {
-        return this.materialsService?.materialList.value;
+        return this.materialsService.materialList;
+    }
+
+    public constructor(
+        client: typeof CatalogClient,
+        catalogService: typeof CatalogService,
+        materialsService: typeof MaterialsService,
+        currentRouteCatalogParam: string = "items"
+    ) {
+        this.currentRouteCatalogParam = currentRouteCatalogParam
+
+        this.catalogService = reactive(new catalogService(client));
+        this.materialsService = reactive(new materialsService(client));
+
+        this.getItems();
+        this.getMaterials();
     }
 
     // methods
-
-    public async initCatalog(
-        client: CatalogClientContract = CatalogClient,
-        catalogService: CatalogService = CatalogService,
-        materialsService: MaterialsService = MaterialsService,
-        currentRouteCatalogParam: string = "items"
-    ): Promise<this> {
-        this.currentRouteCatalogParam = currentRouteCatalogParam
-
-        this.catalogService = new catalogService(client, currentRouteCatalogParam)
-        this.materialsService = new materialsService(client)
-
-        await this.getItems();
-        await this.getMaterials();
-
-        return this;
-    }
 
     public async getItems(): Promise<this> {
         await this.catalogService.getItems(this.currentRouteCatalogParam);

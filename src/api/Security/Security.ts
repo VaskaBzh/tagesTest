@@ -1,14 +1,16 @@
 import { ResponseTrait } from "@/traits/ResponseTrait";
-import { NullableResponseType, ResponseType } from "../types/ResponseType";
+import { ResponseType } from "@/Types/ResponseType";
+import { SecureResponseType } from "@/Types/SecureResponseType";
 
-export async function securitySend(request: () => Promise<ResponseType>): Promise<NullableResponseType> {
+export async function securitySend(request: () => Promise<ResponseType>): Promise<SecureResponseType> {
     try {
         const response: ResponseType = await request();
 
-        if (ResponseTrait.isEmptyResponse(ResponseTrait.getResponseData(response))) {
-            throw new Error(`Empty response`)
+        const responseData: ResponseType = ResponseTrait.getResponseData(response as ResponseType);
+        if (ResponseTrait.isEmptyResponse(responseData)) {
+            console.error('Empty response');
 
-            return null;
+            return response;
         }
 
         return response;

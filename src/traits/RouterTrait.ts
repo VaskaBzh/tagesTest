@@ -1,19 +1,28 @@
 import { router } from "@/router"
-import { RouteRecordName, RouteRecord } from "vue-router";
+import { RouteRecordName, RouteRecordNormalized } from "vue-router";
 
 export class RouterTrait {
-    public static getPrevRouteChain(): RouteRecordName[]  {
-        const routeChain: RouteRecordName[] = [];
-        let currentRoute: RouteRecord = router.currentRoute.value;
+    public static getPrevRouteChain(): string[]  {
+        const routeChain: string[] = [];
+        const currentRouteName: RouteRecordName = router.currentRoute.value.name as RouteRecordName;
+        let checkRoute: RouteRecordNormalized = router.resolve(
+            {
+                name: currentRouteName
+            }
+        ).matched[0];
 
-        while (currentRoute?.meta?.prevPageName) {
-            currentRoute = router.resolve(
+        while (checkRoute?.meta?.prevPageName) {
+            const prevPageName: string = checkRoute.meta.prevPageName as string;
+
+            checkRoute = router.resolve(
                 {
-                    name: currentRoute.meta.prevPageName as RouteRecordName
+                    name: prevPageName
                 }
             ).matched[0];
 
-            routeChain.unshift(currentRoute.name as RouteRecordName);
+            if (checkRoute) {
+                routeChain.unshift(prevPageName);
+            }
         }
 
         return routeChain;

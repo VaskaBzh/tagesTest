@@ -1,1 +1,1 @@
-export type ResponseType = { [key: string]: unknown }
+export type ResponseType = { [key: string]: any }
